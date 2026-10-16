@@ -603,7 +603,7 @@
     const ENCRYPTION_KEY = 'lockin_game_hub_v1';
     const GAMES_OWNER = 'lockin676767676767';
     const GAMES_REPO = 'games';
-    const RAW_GAMES_BASE = `https://raw.githubusercontent.com/GAMESOWNER/{GAMES_REPO}/main/`;
+    const RAW_GAMES_BASE = `https://raw.githubusercontent.com/${GAMES_OWNER}/${GAMES_REPO}/main/`;
     const ADMIN_CODE = '67676767lockinWIDK';
     const RICKROLL_LINK = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
 
@@ -714,7 +714,7 @@
         card.className = 'game-card';
         card.innerHTML = `
           <div class="thumb-wrap">
-            <img class="thumb" src="game.thumbnail"alt="{game.title}" loading="lazy" onload="this.classList.add('loaded')" onerror="this.src='${makeFallbackImage(game.title)}'" />
+            <img class="thumb" src="${game.thumbnail}" alt="${game.title}" loading="lazy" onload="this.classList.add('loaded')" onerror="this.src='${makeFallbackImage(game.title)}'" />
             <span class="thumb-badge">▶</span>
           </div>
           <div class="game-body">
@@ -722,7 +722,7 @@
             <h3 class="game-title">${game.title}</h3>
             <p class="game-description">${game.description || 'A fun game.'}</p>
             <div class="card-actions">
-              <button type="button" class="play-btn" onclick="launchGame('game.url','{game.title}')">Play</button>
+              <button type="button" class="play-btn" onclick="launchGame('${game.url}', '${game.title}')">Play</button>
               <button type="button" class="tips-btn" onclick="showTips('${game.title}')">Tips</button>
             </div>
           </div>
@@ -763,7 +763,7 @@
       
       const issueTitle = encodeURIComponent(`Game suggestion: ${title}`);
       const issueBody = encodeURIComponent(`Game: ${title}\nURL: ${url}\n\nWhy: ${reason || 'N/A'}`);
-      window.open(`https://github.com/GAMESOWNER/hub/issues/new?title={issueTitle}&body=${issueBody}`, '_blank');
+      window.open(`https://github.com/${GAMES_OWNER}/hub/issues/new?title=${issueTitle}&body=${issueBody}`, '_blank');
       closeSuggestionModal();
     }
 
@@ -860,7 +860,7 @@
 
     async function loadGames() {
       try {
-        const res = await fetch(`https://api.github.com/repos/GAMESOWNER/{GAMES_REPO}/git/trees/main?recursive=1`);
+        const res = await fetch(`https://api.github.com/repos/${GAMES_OWNER}/${GAMES_REPO}/git/trees/main?recursive=1`);
         const data = await res.json();
         const tree = data.tree || [];
 
